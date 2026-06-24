@@ -39,6 +39,9 @@
     html.light nav.scrolled { background:rgba(248,250,252,.65) !important; box-shadow:0 4px 30px rgba(0,0,0,.08) !important; }
     html.light #hero { background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(139,92,246,.08) 0%,transparent 70%),var(--bg); }
     html.light .hero-glow { opacity:.5; }
+    /* Keep badge text white in light theme */
+    html.light .hero-float-badge { background:rgba(7,9,15,.82) !important; }
+    html.light .hero-float-badge div { color:#fff !important; }
     html.light .skill-item img { filter:none !important; }
     html.light #toast { background:#fff; border-color:rgba(124,58,237,.3); color:var(--a1); }
     /* CV banner light overrides */
@@ -663,15 +666,46 @@
 
       /* Hero fixes */
       #hero { padding-top:90px; padding-bottom:40px; }
-      .hero-grid { grid-template-columns:1fr !important; }
-      .hero-card-wrap { display:flex; justify-content:center; margin-top:32px; }
-      .hero-photo-outer { max-width:200px; }
-      /* Show float badges on mobile, smaller */
-      .hero-float-badge { display:flex !important; font-size:10px !important; padding:6px 10px !important; gap:6px !important; }
-      .hero-float-badge i { font-size:11px !important; }
-      .hero-float-badge > div > div:first-child { font-size:11px !important; }
-      .hero-float-badge > div > div:last-child { font-size:9px !important; }
-      .hero-name { font-size:clamp(40px,13vw,64px) !important; letter-spacing:-1px; }
+
+      /* Use grid-template-areas so image sits only beside the name */
+      .hero-grid {
+        display:grid !important;
+        grid-template-columns:1fr auto !important;
+        grid-template-rows:auto !important;
+        grid-template-areas:
+          "eyebrow eyebrow"
+          "chip    chip"
+          "name    photo"
+          "typed   typed"
+          "summary summary"
+          "btns    btns"
+          "meta    meta" !important;
+        column-gap:16px !important;
+        row-gap:0 !important;
+      }
+      /* Dissolve the left wrapper so its children become direct grid items */
+      .hero-grid > div.fade-in:first-child { display:contents !important; }
+      .hero-eyebrow   { grid-area:eyebrow; margin-bottom:10px; }
+      .building-chip  { grid-area:chip; margin-bottom:14px; }
+      .hero-name      { grid-area:name; align-self:center; }
+      .hero-typed-wrap{ grid-area:typed; margin-top:12px; }
+      .hero-summary   { grid-area:summary; }
+      .hero-btns      { grid-area:btns; }
+      .hero-meta      { grid-area:meta; }
+      /* Image column */
+      .hero-card-wrap { grid-area:photo; display:flex !important; justify-content:center; align-items:center; margin-top:0 !important; }
+      .hero-photo-outer { max-width:185px !important; }
+      /* Show float badges on mobile, scaled down */
+      .hero-float-badge { display:flex !important; padding:3px 6px !important; font-size:8px !important; gap:3px !important; border-radius:6px !important; }
+      .hero-float-badge i { font-size:8px !important; }
+      .hero-float-badge > div > div:first-child { font-size:8px !important; }
+      .hero-float-badge > div > div:last-child { font-size:7px !important; }
+      /* Reposition badges so they don't overlap on small frame */
+      .hero-photo-frame .hero-float-badge:nth-child(2) { top:6px !important; right:4px !important; }
+      .hero-photo-frame .hero-float-badge:nth-child(3) { bottom:8px !important; left:4px !important; }
+      /* GPA badge — bottom-right corner */
+      .hero-photo-frame .hero-float-badge:nth-child(4) { bottom:8px !important; right:4px !important; top:auto !important; left:auto !important; }
+      .hero-name { font-size:clamp(36px,11vw,58px) !important; letter-spacing:-1px; }
       .hero-eyebrow { font-size:12px; }
       .building-chip { white-space:normal; flex-wrap:wrap; font-size:11px; max-width:100%; }
       .building-name { font-size:11px; }
@@ -803,9 +837,21 @@
     <div class="dock-icon" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-code"></i></div>
     <div class="dock-tip">Projects</div>
   </div>
+  <div class="dock-item" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})">
+    <div class="dock-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><i class="fas fa-briefcase"></i></div>
+    <div class="dock-tip">Experience</div>
+  </div>
+  <div class="dock-item" onclick="document.getElementById('education').scrollIntoView({behavior:'smooth'})">
+    <div class="dock-icon" style="background:linear-gradient(135deg,#06b6d4,#0284c7)"><i class="fas fa-graduation-cap"></i></div>
+    <div class="dock-tip">Education</div>
+  </div>
   <div class="dock-item" onclick="document.getElementById('certificates').scrollIntoView({behavior:'smooth'})">
     <div class="dock-icon" style="background:linear-gradient(135deg,#f43f5e,#e11d48)"><i class="fas fa-certificate"></i></div>
     <div class="dock-tip">Certificates</div>
+  </div>
+  <div class="dock-item" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    <div class="dock-icon" style="background:linear-gradient(135deg,#10b981,#0d9488)"><i class="fas fa-paper-plane"></i></div>
+    <div class="dock-tip">Contact</div>
   </div>
   <div class="dock-sep"></div>
   <div class="dock-item" onclick="window.open('https://github.com/TalhaRizwan178','_blank')">
