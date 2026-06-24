@@ -221,7 +221,7 @@
       opacity:0; transition:all .18s ease; pointer-events:none;
     }
     .dock-tip::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:4px solid transparent; border-top-color:rgba(0,0,0,.78); }
-    @media (max-width:600px) { .mac-dock { gap:4px; padding:8px 10px 6px; } .dock-icon { width:34px; height:34px; font-size:15px; } }
+    @media (max-width:600px) { .mac-dock { gap:3px; padding:6px 8px 5px; } .dock-icon { width:26px; height:26px; font-size:12px; border-radius:7px; } }
 
     /* ══ VS Code IDE Experience ══════════════════════════════════════ */
     .ide-window { border-radius:14px; overflow:hidden; border:1px solid #1e1e1e; box-shadow:0 32px 80px rgba(0,0,0,.6); font-family:'Fira Code',monospace; font-size:13px; background:#1e1e1e; }
@@ -750,8 +750,8 @@
 
       /* Mac dock */
       .dock-tip { display:none; }
-      .mac-dock { gap:3px; padding:7px 9px; bottom:12px; }
-      .dock-icon { width:34px; height:34px; font-size:14px; border-radius:9px; }
+      .mac-dock { gap:3px; padding:6px 8px; bottom:12px; }
+      .dock-icon { width:26px; height:26px; font-size:12px; border-radius:7px; }
       .dock-sep { height:24px; }
 
       /* Cert modal full screen */
@@ -767,8 +767,8 @@
       .hero-name { font-size:clamp(36px,14vw,52px) !important; }
       .ide-tabs { font-size:11px; }
       .ide-tab { padding:7px 10px; }
-      .mac-dock { padding:6px 8px; gap:2px; }
-      .dock-icon { width:30px; height:30px; font-size:13px; }
+      .mac-dock { padding:5px 6px; gap:2px; }
+      .dock-icon { width:24px; height:24px; font-size:11px; border-radius:6px; }
     }
   </style>
 </head>
