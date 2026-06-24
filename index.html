@@ -639,21 +639,69 @@
     /* ── Responsive ─────────────────────────────────────────────────── */
     @media (max-width:900px) {
       .hero-grid,.about-grid,.featured-inner,.contact-grid { grid-template-columns:1fr; }
-      .hero-card-wrap { display:flex; }
-      .hero-photo-outer { max-width:280px; }
+      .hero-card-wrap { display:flex; justify-content:center; }
+      .hero-photo-outer { max-width:260px; }
       .hero-float-badge { display:none; }
       .ss-preview { min-height:220px; }
       .nav-links { display:none; }
-      .nav-links.open { display:flex; flex-direction:column; position:fixed; top:68px; left:0; right:0; background:rgba(7,9,15,.96); backdrop-filter:blur(20px); padding:24px; gap:20px; border-bottom:1px solid var(--border); z-index:999; }
+      .nav-links.open { display:flex; flex-direction:column; position:fixed; top:68px; left:0; right:0; background:rgba(7,9,15,.97); backdrop-filter:blur(20px); padding:24px; gap:20px; border-bottom:1px solid var(--border); z-index:999; }
+      html.light .nav-links.open { background:rgba(248,250,252,.97); }
       .hamburger { display:block; }
+      .skills-grid { grid-template-columns:1fr 1fr; }
+      .cv-banner > div > div { grid-template-columns:1fr !important; }
     }
     @media (max-width:640px) {
-      .section { padding:72px 0; }
+      .section { padding:60px 0; }
+      .container { padding:0 16px; }
+      .hero-name { font-size:clamp(36px,12vw,60px) !important; letter-spacing:-1px; }
+      .building-chip { white-space:normal; flex-wrap:wrap; font-size:11px; }
       .hero-btns { flex-direction:column; }
+      .hero-btns .btn { text-align:center; justify-content:center; }
+      .hero-meta { gap:16px; }
+      .hero-meta-item span:first-child { font-size:20px; }
       .projects-grid { grid-template-columns:1fr; }
       .certs-grid { grid-template-columns:1fr; }
+      .skills-grid { grid-template-columns:1fr; }
       .form-row { grid-template-columns:1fr; }
       .github-stats-grid { grid-template-columns:1fr; }
+      .sec-title { font-size:clamp(24px,7vw,36px); }
+      .sec-header { margin-bottom:40px; }
+      /* IDE on mobile */
+      .ide-sidebar { display:none; }
+      .ide-body { height:auto; flex-direction:column; }
+      .ide-code-pane { min-height:320px; }
+      .ide-terminal-panel { height:160px; }
+      /* Featured project */
+      .ss-preview { padding:16px; }
+      .ss-preview > div[style*="grid-template-columns:repeat(4"] { grid-template-columns:repeat(2,1fr) !important; }
+      /* CV banner */
+      .cv-banner { padding:40px 0 !important; }
+      .cv-banner > div { padding:0 16px !important; }
+      .cv-banner > div > div { flex-direction:column !important; gap:24px !important; }
+      .cv-right-card { min-width:unset !important; width:100%; }
+      /* About terminal */
+      .terminal-body { padding:14px 16px; font-size:12px; }
+      /* Mac dock — hide labels, shrink */
+      .dock-tip { display:none; }
+      .mac-dock { gap:4px; padding:8px 10px; bottom:12px; }
+      .dock-icon { width:36px; height:36px; font-size:15px; border-radius:9px; }
+      .dock-sep { height:26px; }
+      /* Stats grid in SkillSphere */
+      .hero-photo-outer { max-width:220px; }
+      /* Cert modal full screen */
+      #certModal > div { width:96vw !important; height:92vh !important; border-radius:12px !important; }
+      /* Timeline */
+      .timeline { padding-left:0; }
+      /* Contact items */
+      .contact-item { font-size:13px; }
+      /* Back to top doesn't overlap dock */
+      #backToTop { bottom:80px; }
+    }
+    @media (max-width:400px) {
+      .ide-tabs { font-size:11px; }
+      .ide-tab { padding:7px 10px; }
+      .mac-dock { padding:6px 8px; gap:3px; }
+      .dock-icon { width:32px; height:32px; font-size:14px; }
     }
   </style>
 </head>
