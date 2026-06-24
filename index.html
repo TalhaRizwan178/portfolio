@@ -663,9 +663,9 @@
 
       /* Hero fixes */
       #hero { padding-top:90px; padding-bottom:40px; }
-      .hero-grid { grid-template-columns:1fr !important; }
-      .hero-card-wrap { display:flex; justify-content:center; margin-top:32px; }
-      .hero-photo-outer { max-width:180px; }
+      .hero-grid { grid-template-columns:1fr auto !important; gap:16px !important; align-items:center !important; }
+      .hero-card-wrap { display:flex; justify-content:center; align-items:flex-start; margin-top:0; }
+      .hero-photo-outer { max-width:120px; }
       .hero-name { font-size:clamp(40px,13vw,64px) !important; letter-spacing:-1px; }
       .hero-eyebrow { font-size:12px; }
       .building-chip { white-space:normal; flex-wrap:wrap; font-size:11px; max-width:100%; }
