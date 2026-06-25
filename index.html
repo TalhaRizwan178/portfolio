@@ -624,6 +624,7 @@
       background:var(--surface); border:1px solid var(--border); border-radius:8px;
       padding:11px 14px; font-size:14px; color:var(--text); font-family:'Inter',sans-serif;
       transition:border-color .2s; outline:none; resize:none;
+      touch-action:manipulation; -webkit-tap-highlight-color:transparent;
     }
     .form-group input:focus, .form-group textarea:focus { border-color:var(--a1); }
     .form-group textarea { min-height:110px; }
@@ -716,6 +717,11 @@
       .hero-summary { font-size:14px; }
       /* Canvas — reduce opacity and disable glow on mobile */
       #particleCanvas { opacity:0.4; }
+      /* Disable expensive backdrop-filter blur on mobile for smooth scrolling */
+      nav.scrolled { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+      .mac-dock { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+      .hero-float-badge { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+      .nav-links.open { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
 
       /* General */
       .projects-grid { grid-template-columns:1fr; }
@@ -2547,8 +2553,8 @@ document.querySelectorAll('.skill-item').forEach(item => {
     const r = canvas.getBoundingClientRect();
     mouseX = e.clientX - r.left;
     mouseY = e.clientY - r.top;
-  });
-  window.addEventListener('scroll', () => { scrollBoost = Math.min(scrollBoost + 2.5, 10); });
+  }, { passive: true });
+  window.addEventListener('scroll', () => { scrollBoost = Math.min(scrollBoost + 2.5, 10); }, { passive: true });
 
   /* ── Color palette + lerp ── */
   const PAL = [
@@ -2804,7 +2810,18 @@ document.querySelectorAll('.skill-item').forEach(item => {
     H = canvas.height = canvas.offsetHeight;
   }
 
+  const TARGET_FPS = isMobile ? 30 : 60;
+  const FRAME_MS   = 1000 / TARGET_FPS;
+  let lastFrameT   = 0;
+  let rafId        = null;
+  let paused       = false;
+
   function loop(t) {
+    rafId = requestAnimationFrame(loop);
+    if (paused) return;
+    if (t - lastFrameT < FRAME_MS) return;
+    lastFrameT = t;
+
     scrollBoost = Math.max(0, scrollBoost - 0.09);
     ctx.clearRect(0, 0, W, H);
     /* In light mode add a subtle purple-tinted wash so jellyfish glow pops */
@@ -2819,13 +2836,17 @@ document.querySelectorAll('.skill-item').forEach(item => {
     jellies.forEach(j => j.update(t));
     drawArcs(jellies.filter(j => j.layer >= 1), t);
     jellies.forEach(j => j.draw(ctx, t));
-    requestAnimationFrame(loop);
   }
 
-  window.addEventListener('resize', () => { resize(); initJellies(); });
+  /* Pause animation when tab is hidden to save CPU */
+  document.addEventListener('visibilitychange', () => {
+    paused = document.hidden;
+  });
+
+  window.addEventListener('resize', () => { resize(); initJellies(); }, { passive: true });
   resize();
   initJellies();
-  requestAnimationFrame(loop);
+  rafId = requestAnimationFrame(loop);
 })();
 </script>
 </body>
